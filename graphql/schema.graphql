@@ -26,6 +26,7 @@ type Query {
     GetSlugCategoriasNoticias(tipo:Int,slug:String):Categorias @field(resolver: "Categorias@GetSlugCategoriasNoticias")
 
     GetAllNoticasInformes(page:Int,number_paginate:Int,tipo:Int,slugAutor:String):GetAllNoticiasInformes@field(resolver: "NoticiasInformes@GetAllNoticiasInformes")
+    GetBusquedaAvanzadaNoticasInformes(page:Int,number_paginate:Int,tipo:Int,palabraClave:String):GetAllNoticiasInformes@field(resolver: "NoticiasInformes@GetBusquedaAvanzadaNoticiasInformes")
     GetSlugNoticasInformes(slug:String,tipo:Int):NoticiasInformesOpiniones@field(resolver: "NoticiasInformes@GetSlugNoticiasInformes")
     GetFechaNoticasInformes(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllNoticiasInformes @field(resolver: "NoticiasInformes@GetFechaNoticiasInformes")
     GetKeywordsNoticasInformes(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllNoticiasInformes @field(resolver: "NoticiasInformes@GetKeywordsNoticiasInformes")
@@ -35,6 +36,7 @@ type Query {
     GetSlugCategoriasArticulosJuridcos(tipo:Int,slug:String):Categorias @field(resolver: "Categorias@GetSlugCategoriasArticulosJuridicos")
 
     GetAllArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,slugAutor:String):GetAllArticulosJuridicos@field(resolver: "ArticulosJuridicos@GetAllArticulosJuridicos")
+    GetBusquedaAvanzadaArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,palabraClave:String):GetAllArticulosJuridicos@field(resolver: "ArticulosJuridicos@GetBusquedaAvanzadaArticulosJuridicos")
     GetSlugArticulosJuridicos(slug:String,tipo:Int):ArticulosJuridicos@field(resolver: "ArticulosJuridicos@GetSlugArticulosJuridicos")
     GetFechaArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllArticulosJuridicos @field(resolver: "ArticulosJuridicos@GetFechaArticulosJuridicos")
     GetKeywordsArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllArticulosJuridicos @field(resolver: "ArticulosJuridicos@GetKeywordsArticulosJuridicos")
@@ -44,6 +46,7 @@ type Query {
     GetSlugCategoriasNormasComentadas(tipo:Int,slug:String):Categorias @field(resolver: "Categorias@GetSlugCategoriasNormasComentadas")
 
     GetAllNormasComentadas(page:Int,number_paginate:Int,tipo:Int):GetAllNormasComentadas@field(resolver: "NormasComentadas@GetAllNormasComentadas")
+    GetBusquedaAvanzadaNormasComentadas(page:Int,number_paginate:Int,tipo:Int,palabraClave:String):GetAllNormasComentadas@field(resolver: "NormasComentadas@GetBusquedaAvanzadaNormasComentadas")
     GetSlugNormasComentadas(slug:String,tipo:Int):NormasComentadas@field(resolver: "NormasComentadas@GetSlugNormasComentadas")
     GetFechaNormasComentadas(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllNormasComentadas @field(resolver: "NormasComentadas@GetFechaNormasComentadas")
     GetKeywordsNormasComentadas(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllNormasComentadas @field(resolver: "NormasComentadas@GetKeyworsNormasComentadas")
@@ -53,6 +56,7 @@ type Query {
     GetSlugCategoriasJurisprudenciaComentada(tipo:Int,slug:String):Categorias @field(resolver: "Categorias@GetSlugCategoriasJurisprudenciaComentada")
 
     GetAllJurisprudenciaComentada(page:Int,number_paginate:Int,tipo:Int,slugEmisor:String):GetAllJurisprudenciaComentadas@field(resolver: "JurisprudenciasComentadas@GetAllJurisprudenciasComentadas")
+    GetBusquedaAvanzadaJurisprudenciaComentada(page:Int,number_paginate:Int,tipo:Int,palabraClave:String):GetAllJurisprudenciaComentadas@field(resolver: "JurisprudenciasComentadas@GetBusquedaAvanzadaJurisprudenciasComentadas")
     GetSlugJurisprudenciaComentada(slug:String,tipo:Int):JurisprudenciasComentadas@field(resolver: "JurisprudenciasComentadas@GetSlugJurisprudenciasComentadas")
     GetFechaJurisprudenciaComentada(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllJurisprudenciaComentadas @field(resolver: "JurisprudenciasComentadas@GetFechaJurisprudenciasComentadas")
     GetKeywordsJurisprudenciaComentada(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllJurisprudenciaComentadas @field(resolver: "JurisprudenciasComentadas@GetKeywordsJurisprudenciasComentadas")
@@ -60,6 +64,7 @@ type Query {
 
 
     GetAllBoletinesSemanales(page:Int,number_paginate:Int,tipo:Int):GetAllBoletinesSemanales@field(resolver: "BoletinesSemanales@GetAllBoletinesSemanales")
+    GetBusquedaAvanzadaBoletinesSemanales(page:Int,number_paginate:Int,tipo:Int,palabraClave:String):GetAllBoletinesSemanales@field(resolver: "BoletinesSemanales@GetBusquedaAvanzadaBoletinesSemanales")
     GetKeywordsBoletinesSemanales(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllBoletinesSemanales@field(resolver: "BoletinesSemanales@GetKeywordsBoletinesSemanales")
     GetSlugBoletinesSemanales(slug:String,tipo:Int):BoletinesSemanales@field(resolver: "BoletinesSemanales@GetSlugBoletinesSemanales")
     GetFechaBoletinesSemanales(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllBoletinesSemanales @field(resolver: "BoletinesSemanales@GetFechaBoletinesSemanales")
@@ -80,6 +85,7 @@ type Query {
     GetKeywordsNormasLegales(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllNormasLegales @field(resolver: "NormasLegales@GetKeywordsNormasLegales")
 
     GetAllSumarios(page:Int,number_paginate:Int,tipo:Int):GetAllSumarios@field(resolver: "SumariosRevistas@GetAllSumariosRevistas")
+    GetBusquedaAvanzadaSumarios(page:Int,number_paginate:Int,tipo:Int,palabraClave:String):GetAllSumarios@field(resolver: "SumariosRevistas@GetBusquedaAvanzadaSumariosRevistas")
     GetSlugSumarios(slug:String,tipo:Int):SumariosRevistas @field(resolver: "SumariosRevistas@GetSlugSumariosRevistas")
     GetFechaSumarios(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllSumarios @field(resolver: "SumariosRevistas@GetFechaSumariosRevistas")
     GetDescripcionSumarios(page:Int,number_paginate:Int,tipo:Int,descripcion:String):GetAllSumarios @field(resolver: "SumariosRevistas@GetDescripcionSumariosRevistas")
