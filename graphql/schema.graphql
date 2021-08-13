@@ -1,0 +1,1227 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
+scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
+"Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec"
+scalar Upload
+  @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
+type Query {
+    GetImagenes:[Imagenes!] @field(resolver: "Imagenes@GetImagenes")
+    GetAllRevistasDigitales(page:Int,number_paginate:Int,tipo:Int):GetAllRevistasDigitales@field(resolver: "RevistasDigitales@GetAllRevistasDigitales")
+    #GetKeywordsRevistasDigitales(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllRevistasDigitales@field(resolver: "RevistasDigitales@GetAllRevistasDigitales")
+    #GetSlugRevistasDigitales(slug:String,tipo:Int):RevistasDigitales @field(resolver: "RevistasDigitales@GetSlugRevistasDigitales")
+    GetFechaRevistasDigitales(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllRevistasDigitales @field(resolver: "RevistasDigitales@GetFechaRevistasDigitales")
+
+    GetAllLibrosDigitales(page:Int,number_paginate:Int,tipo:Int):GetAllLibrosDigitales@field(resolver: "LibrosDigitales@GetAllLibrosRevistas")
+    #GetSlugLibrosDigitales(slug:String,tipo:Int):LibrosDigitales @field(resolver: "LibrosDigitales@GetSlugLibrosRevistas")
+    #GetKeywordLibrosDigitales(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllLibrosDigitales @field(resolver: "LibrosDigitales@GetKeywordLibrosRevistas")
+    GetFechaLibrosDigitales(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllLibrosDigitales @field(resolver: "LibrosDigitales@GetFechaLibrosRevistas")
+
+    GetAllCategoriasNoticias(tipo:Int):[Categorias!] @field(resolver: "Categorias@GetAllCategoriasNoticias")
+    GetSlugCategoriasNoticias(tipo:Int,slug:String):Categorias @field(resolver: "Categorias@GetSlugCategoriasNoticias")
+
+    GetAllNoticasInformes(page:Int,number_paginate:Int,tipo:Int,slugAutor:String):GetAllNoticiasInformes@field(resolver: "NoticiasInformes@GetAllNoticiasInformes")
+    GetSlugNoticasInformes(slug:String,tipo:Int):NoticiasInformesOpiniones@field(resolver: "NoticiasInformes@GetSlugNoticiasInformes")
+    GetFechaNoticasInformes(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllNoticiasInformes @field(resolver: "NoticiasInformes@GetFechaNoticiasInformes")
+    GetKeywordsNoticasInformes(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllNoticiasInformes @field(resolver: "NoticiasInformes@GetKeywordsNoticiasInformes")
+    GetCategoriaNoticasInformes(page:Int,number_paginate:Int,tipo:Int,slug:String):GetAllNoticiasInformes @field(resolver: "NoticiasInformes@GetCategoriaNoticiasInformes")
+
+    GetAllCategoriasArticulosJuridcos(tipo:Int):[Categorias!] @field(resolver: "Categorias@GetAllCategoriasArticulosJuridicos")
+    GetSlugCategoriasArticulosJuridcos(tipo:Int,slug:String):Categorias @field(resolver: "Categorias@GetSlugCategoriasArticulosJuridicos")
+
+    GetAllArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,slugAutor:String):GetAllArticulosJuridicos@field(resolver: "ArticulosJuridicos@GetAllArticulosJuridicos")
+    GetSlugArticulosJuridicos(slug:String,tipo:Int):ArticulosJuridicos@field(resolver: "ArticulosJuridicos@GetSlugArticulosJuridicos")
+    GetFechaArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllArticulosJuridicos @field(resolver: "ArticulosJuridicos@GetFechaArticulosJuridicos")
+    GetKeywordsArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllArticulosJuridicos @field(resolver: "ArticulosJuridicos@GetKeywordsArticulosJuridicos")
+    GetCategoriaArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,slug:String):GetAllArticulosJuridicos @field(resolver: "ArticulosJuridicos@GetCategoriaArticulosJuridicos")
+
+    GetAllCategoriasNormasComentadas(tipo:Int):[Categorias!] @field(resolver: "Categorias@GetAllCategoriasNormasComentadas")
+    GetSlugCategoriasNormasComentadas(tipo:Int,slug:String):Categorias @field(resolver: "Categorias@GetSlugCategoriasNormasComentadas")
+
+    GetAllNormasComentadas(page:Int,number_paginate:Int,tipo:Int):GetAllNormasComentadas@field(resolver: "NormasComentadas@GetAllNormasComentadas")
+    GetSlugNormasComentadas(slug:String,tipo:Int):NormasComentadas@field(resolver: "NormasComentadas@GetSlugNormasComentadas")
+    GetFechaNormasComentadas(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllNormasComentadas @field(resolver: "NormasComentadas@GetFechaNormasComentadas")
+    GetKeywordsNormasComentadas(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllNormasComentadas @field(resolver: "NormasComentadas@GetKeyworsNormasComentadas")
+    GetCategoriaNormasComentadas(page:Int,number_paginate:Int,tipo:Int,slug:String):GetAllNormasComentadas @field(resolver: "NormasComentadas@GetCategoriaNormasComentadas")
+
+    GetAllCategoriasJurisprudenciaComentada(tipo:Int):[Categorias!] @field(resolver: "Categorias@GetAllCategoriasJurisprudenciaComentada")
+    GetSlugCategoriasJurisprudenciaComentada(tipo:Int,slug:String):Categorias @field(resolver: "Categorias@GetSlugCategoriasJurisprudenciaComentada")
+
+    GetAllJurisprudenciaComentada(page:Int,number_paginate:Int,tipo:Int,slugEmisor:String):GetAllJurisprudenciaComentadas@field(resolver: "JurisprudenciasComentadas@GetAllJurisprudenciasComentadas")
+    GetSlugJurisprudenciaComentada(slug:String,tipo:Int):JurisprudenciasComentadas@field(resolver: "JurisprudenciasComentadas@GetSlugJurisprudenciasComentadas")
+    GetFechaJurisprudenciaComentada(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllJurisprudenciaComentadas @field(resolver: "JurisprudenciasComentadas@GetFechaJurisprudenciasComentadas")
+    GetKeywordsJurisprudenciaComentada(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllJurisprudenciaComentadas @field(resolver: "JurisprudenciasComentadas@GetKeywordsJurisprudenciasComentadas")
+    GetCategoriaJurisprudenciaComentada(page:Int,number_paginate:Int,tipo:Int,slug:String):GetAllJurisprudenciaComentadas @field(resolver: "JurisprudenciasComentadas@GetCategoriaJurisprudenciasComentadas")
+
+
+    GetAllBoletinesSemanales(page:Int,number_paginate:Int,tipo:Int):GetAllBoletinesSemanales@field(resolver: "BoletinesSemanales@GetAllBoletinesSemanales")
+    GetKeywordsBoletinesSemanales(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllBoletinesSemanales@field(resolver: "BoletinesSemanales@GetKeywordsBoletinesSemanales")
+    GetSlugBoletinesSemanales(slug:String,tipo:Int):BoletinesSemanales@field(resolver: "BoletinesSemanales@GetSlugBoletinesSemanales")
+    GetFechaBoletinesSemanales(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllBoletinesSemanales @field(resolver: "BoletinesSemanales@GetFechaBoletinesSemanales")
+
+    GetAllCodigosLegislacion(page:Int,number_paginate:Int,tipo:Int):GetAllCodigosLegislacion@field(resolver: "CodigosLegislacion@GetAllCodigosLegislacion")
+    GetSlugCodigosLegislacion(slug:String,tipo:Int):CodigosLegislacion @field(resolver: "CodigosLegislacion@GetSlugCodigosLegislacion")
+    GetFechaCodigosLegislacion(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllCodigosLegislacion @field(resolver: "CodigosLegislacion@GetFechaCodigosLegislacion")
+    GetKeywordsCodigosLegislacion(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllCodigosLegislacion @field(resolver: "CodigosLegislacion@GetKeywordsCodigosLegislacion")
+
+    GetAllHerramientasBusqueda(page:Int,number_paginate:Int,tipo:Int):GetAllHerramientasBusqueda@field(resolver: "HerramientasBusqueda@GetAllHerramientasBusqueda")
+    GetSlugHerramientasBusqueda(slug:String,tipo:Int):HerramientasBusqueda @field(resolver: "HerramientasBusqueda@GetSlugHerramientasBusqueda")
+    GetFechaHerramientasBusqueda(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllHerramientasBusqueda @field(resolver: "HerramientasBusqueda@GetFechaHerramientasBusqueda")
+    GetKeywordsHerramientasBusqueda(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllHerramientasBusqueda @field(resolver: "HerramientasBusqueda@GetKeywordsHerramientasBusqueda")
+
+    GetAllNormasLegales(page:Int,number_paginate:Int,tipo:Int):GetAllNormasLegales@field(resolver: "NormasLegales@GetAllNormasLegales")
+    GetSlugNormasLegales(slug:String,tipo:Int):NomasLegales @field(resolver: "NormasLegales@GetSlugNormasLegales")
+    GetFechaNormasLegales(page:Int,number_paginate:Int,tipo:Int,fechaInicial:Date,fechaFinal:Date):GetAllNormasLegales @field(resolver: "NormasLegales@GetFechaNormasLegales")
+    GetKeywordsNormasLegales(page:Int,number_paginate:Int,tipo:Int,keyword:String):GetAllNormasLegales @field(resolver: "NormasLegales@GetKeywordsNormasLegales")
+
+    GetAllSumarios(page:Int,number_paginate:Int,tipo:Int):GetAllSumarios@field(resolver: "SumariosRevistas@GetAllSumariosRevistas")
+    GetSlugSumarios(slug:String,tipo:Int):SumariosRevistas @field(resolver: "SumariosRevistas@GetSlugSumariosRevistas")
+    GetFechaSumarios(page:Int,number_paginate:Int,tipo:Int,fecha:Date):GetAllSumarios @field(resolver: "SumariosRevistas@GetFechaSumariosRevistas")
+    GetDescripcionSumarios(page:Int,number_paginate:Int,tipo:Int,descripcion:String):GetAllSumarios @field(resolver: "SumariosRevistas@GetDescripcionSumariosRevistas")
+
+    GetAllUsers:[User!]@field(resolver: "Usuarios@GetAllUsers")
+
+    GetAllFavoritosNoticiasOpiniones(page:Int,number_paginate:Int,tipo:Int,id_key:String):GetAllFavoritosNoticiasOpiniones@field(resolver: "FavoritosNoticiasInformesOpiniones@GetAllFavoritos")
+    GetAllFavoritosArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,id_key:String):GetAllFavoritosArticulosJuridicos@field(resolver: "FavoritosArticulosJuridicos@GetAllFavoritos")
+    GetAllFavoritosNormasComentadas(page:Int,number_paginate:Int,tipo:Int,id_key:String):GetAllFavoritosNormasComentadas@field(resolver: "FavoritosNormasComentadas@GetAllFavoritos")
+    GetAllFavoritosJurisprudenciasJuridicos(page:Int,number_paginate:Int,tipo:Int,id_key:String):GetAllFavoritosJurisprudenciasJuridicos@field(resolver: "FavoritosJurisprudenciasComentadas@GetAllFavoritos")
+    GetAllFavoritosBoletinesSemanales(page:Int,number_paginate:Int,tipo:Int,id_key:String):GetAllFavoritosBoletinesSemanales@field(resolver: "FavoritosBoletines@GetAllFavoritos")
+
+
+    GetBusquedaFavoritosNoticiasOpiniones(page:Int,number_paginate:Int,tipo:Int,palabra:String):GetAllFavoritosNoticiasOpiniones@field(resolver: "FavoritosNoticiasInformesOpiniones@GetBusquedaFavoritosNoticiasOpiniones")
+    GetBusquedaFavoritosArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,palabra:String):GetAllFavoritosArticulosJuridicos@field(resolver: "FavoritosArticulosJuridicos@GetBusquedaFavoritosArticulosJuridicos")
+    GetBusquedaFavoritosJurisprudenciasJuridicos(page:Int,number_paginate:Int,tipo:Int,palabra:String):GetAllFavoritosJurisprudenciasJuridicos@field(resolver: "FavoritosJurisprudenciasComentadas@GetBusquedaFavoritosJurisprudenciasJuridicos")
+
+    GetLanding(tipo:Int):Landing@field(resolver: "Landing@GetLanding")
+
+    GetAllUseariosSuscritos:[UserSuscrito!]@field(resolver: "Usuarios@GetAllUsersSuscritos")
+
+    #autores
+    GetAutores(page:Int,number_paginate:Int):GetAllAutores@field(resolver: "Autores@GetAllAutores")
+    GetAutoresSlug(slugAutor:String):Autores@field(resolver: "Autores@GetSlugAutores")
+    #emisores
+    GetEmisores(page:Int,number_paginate:Int):GetAllEmisores@field(resolver: "Emisores@GetAllEmisores")
+    GetEmisoresSlug(slugEmisor:String):Emisores@field(resolver: "Emisores@GetSlugEmisores")
+
+    GetNotasAllNoticasInformes(page:Int,number_paginate:Int,tipo:Int,producto_id:Int):GetNotasAllNoticasInformes@field(resolver: "NotasNoticiasInformesOpiniones@GetAllNotas")
+    GetNotasNoticasInformes(id:Int,tipo:Int):NotasNoticiasInformesOpiniones@field(resolver: "NotasNoticiasInformesOpiniones@GetIdNotas")
+
+    GetNotasAllJurisprudenciasComentadas(page:Int,number_paginate:Int,tipo:Int,producto_id:Int):GetNotasAllJurisprudenciasComentadas@field(resolver: "NotasJurisprudenciasComentadas@GetAllNotas")
+    GetNotasJurisprudenciasComentadas(id:Int,tipo:Int):NotasJurisprudenciasComentadas@field(resolver: "NotasJurisprudenciasComentadas@GetIdNotas")
+
+    GetNotasAllArticulosJuridicos(page:Int,number_paginate:Int,tipo:Int,producto_id:Int):GetNotasAllArticulosJuridicos@field(resolver: "NotasArticulosJuridicos@GetAllNotas")
+    GetNotasArticulosJuridicos(id:Int,tipo:Int):NotasArticulosJuridicos@field(resolver: "NotasArticulosJuridicos@GetIdNotas")
+}
+type GetNotasAllArticulosJuridicos{
+    nroTotal_items:Int
+    data:[NotasArticulosJuridicos!]
+}
+type GetNotasAllJurisprudenciasComentadas{
+    nroTotal_items:Int
+    data:[NotasJurisprudenciasComentadas!]
+}
+type GetNotasAllNoticasInformes{
+    nroTotal_items:Int
+    data:[NotasNoticiasInformesOpiniones!]
+}
+type GetAllEmisores {
+    nroTotal_items:Int
+    data:[Emisores!]
+}
+type GetAllAutores {
+    nroTotal_items:Int
+    data:[Autores!]
+}
+type GetAllFavoritosJurisprudenciasJuridicos{
+    nroTotal_items:Int
+    data:[FavoritosNoticiasJurisprudenciasComentadas!]
+}
+type GetAllFavoritosNormasComentadas{
+    nroTotal_items:Int
+    data:[FavoritosNormasComentadas!]
+}
+type GetAllFavoritosArticulosJuridicos{
+    nroTotal_items:Int
+    data:[FavoritosArticulosJuridicos!]
+}
+type GetAllFavoritosNoticiasOpiniones{
+    nroTotal_items:Int
+    data:[FavoritosNoticiasInformes!]
+}
+type GetAllFavoritosBoletinesSemanales{
+    nroTotal_items:Int
+    data:[FavoritosNoticiasBoletinesSemanales!]
+}
+type GetAllSumarios{
+    nroTotal_items:Int
+    data:[SumariosRevistas!]
+}
+type GetAllNormasLegales{
+    nroTotal_items:Int
+    data:[NomasLegales!]
+}
+type GetAllHerramientasBusqueda{
+    nroTotal_items:Int
+    data:[HerramientasBusqueda!]
+}
+type GetAllCodigosLegislacion{
+    nroTotal_items:Int
+    data:[CodigosLegislacion!]
+}
+type GetAllBoletinesSemanales{
+    nroTotal_items:Int
+    data:[BoletinesSemanales!]
+}
+type GetAllJurisprudenciaComentadas{
+    nroTotal_items:Int
+    data:[JurisprudenciasComentadas!]
+}
+type GetAllNormasComentadas{
+    nroTotal_items:Int
+    data:[NormasComentadas!]
+}
+type GetAllArticulosJuridicos{
+    nroTotal_items:Int
+    data:[ArticulosJuridicos!]
+}
+type GetAllNoticiasInformes{
+    nroTotal_items:Int
+    data:[NoticiasInformesOpiniones!]
+}
+type GetAllLibrosDigitales{
+    nroTotal_items:Int
+    data:[LibrosDigitales!]
+}
+type GetAllRevistasDigitales{
+    nroTotal_items:Int
+    data:[RevistasDigitales!]
+}
+type UserSuscrito{
+    ID:Int
+    Nombre:String
+    username:String
+    fecha_alta:DateTime
+    fecha_baja:DateTime
+    PIN:String
+    TimeStmp:String
+    UID:String
+    TipoUsuario:String
+    PassTipoUsuario:String
+    Ingresos:Float
+    UPDATENUMBER:Float
+    mac:String
+    imei:String
+    idProductos:Int
+    estado:Int
+    apellido:String
+    email:String
+    L_bloqueo:Int
+    tipo_cliente:String
+    Nro_sobre:Float
+    TipoUusarioWeb:String
+    PassTipoUsuarioWeb:String
+    AnhoSuscripcion:String
+    TipoUsuarioApp:String
+    PassTipoUsuarioApp:String
+    Direccion:String
+    Telefono:String
+    NrContrato:String
+    NroDni:String
+    NrTipo:String
+    RFFechCto:Date
+    Super_vend:String
+    id_key:String
+    usrInfocontable:String
+    passInfocontable:String
+    usrebookweb:String
+    passebookweb:String
+    mykey:String
+    myVistaC:String
+}
+input UserSuscritoInput{
+    ip_producto:Int
+    PIN:String
+}
+type User {
+    id: ID
+    typeUser: String
+    tipoGaceta: Int
+    typeDocument:Int
+    numberDocument:Int
+    name:String
+    surnames:String
+    fecha_nacimiento:String
+    email:String
+    photo:String
+    password:String
+    api_token:String
+    created_at: DateTime
+    updated_at: DateTime
+}
+input UserInput{
+    id: ID
+    typeUser: String
+    tipoGaceta: Int
+    typeDocument:Int
+    numberDocument:Int
+    name:String
+    surnames:String
+    fecha_nacimiento:String
+    email:String
+    password:String
+}
+input CambiarContrasenaInput{
+    id:ID
+    password_nuevo:String
+    password_antiguo:String
+}
+type Imagenes{
+    id:ID
+    nombre:String
+    url:String
+}
+input ImagenesInput{
+    id:ID
+    nombre:String
+    url:String
+}
+
+type RevistasDigitales{
+    id:ID
+    nombres:String
+    imagen:Imagenes
+    url:String
+    tomo_revista:String
+    created_at: DateTime
+    updated_at: DateTime
+}
+input RevistasDigitalesInput {
+    id:ID
+    nombres:String
+    imagen:Int
+    url:String
+    tomo_revista:String
+
+    tipo:Int
+}
+type LibrosDigitales{
+    id:ID
+    nombres:String
+    imagen:Imagenes
+    url:String
+    tomo_libro_digital:String
+    created_at: DateTime
+    updated_at: DateTime
+}
+input LibrosDigitalesInput {
+    id:ID
+    nombres:String
+    imagen:Int
+    url:String
+    tomo_libro_digital:String
+
+    tipo:Int
+}
+type Categorias {
+    id:ID
+    titulo:String
+    slug:String
+    keywords:String
+    descripcion:String
+    numero:Int
+    created_at: DateTime
+    updated_at: DateTime
+}
+input CategoriasInput{
+    id:ID
+    titulo:String
+    slug:String
+    keywords:String
+    descripcion:String
+
+    tipo:Int
+}
+type NoticiasInformesOpiniones{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Imagenes
+    imagen_rectangular:Imagenes
+    fecha:DateTime
+    categoria_id:Int
+    textoAudio:String
+    slugAutor:String
+    created_at: DateTime
+    updated_at: DateTime
+    Categorias:Categorias
+    Autores:Autores
+    NotasNoticiasInformesOpiniones:[NotasNoticiasInformesOpiniones!]
+}
+input NoticiasInformesOpinionesInput{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Int
+    imagen_rectangular:Int
+    fecha:Date
+    categoria_id:Int
+    textoAudio:String
+    autorId:Int
+
+    tipo:Int
+}
+type NotasNoticiasInformesOpiniones {
+    id:ID
+    descripcionNota:String
+    tituloNota:String
+    id_key:String
+    pro_id:Int
+    NoticiasInformesOpiniones:NoticiasInformesOpiniones
+}
+input NotasNoticiasInformesOpinionesInput {
+    id:ID
+    descripcionNota:String
+    tituloNota:String
+    id_key:String
+    pro_id:Int
+    tipo:Int
+}
+type ArticulosJuridicos{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Imagenes
+    imagen_rectangular:Imagenes
+    fecha:DateTime
+    categoria_id:Int
+    textoAudio:String
+    slugAutor:String
+
+    created_at: DateTime
+    updated_at: DateTime
+    Categorias:Categorias
+    Autores:Autores
+    NotasArticulosJuridicos:[NotasArticulosJuridicos!]
+}
+input ArticulosJuridicosInput{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Int
+    imagen_rectangular:Int
+    fecha:Date
+    categoria_id:Int
+    textoAudio:String
+    autorId:Int
+    tipo:Int
+}
+type NotasArticulosJuridicos {
+    id:ID
+    descripcionNota:String
+    tituloNota:String
+    id_key:String
+    pro_id:Int
+    ArticulosJuridicos:ArticulosJuridicos
+}
+input NotasArticulosJuridicosInput {
+    id:ID
+    descripcionNota:String
+    tituloNota:String
+    id_key:String
+    pro_id:Int
+    tipo:Int
+}
+type NormasComentadas{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Imagenes
+    imagen_rectangular:Imagenes
+    fecha:DateTime
+    categoria_id:Int
+    created_at:DateTime
+    updated_at:DateTime
+    Categorias:Categorias
+}
+input NormasComentadasInput{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Int
+    imagen_rectangular:Int
+    fecha:Date
+    categoria_id:Int
+
+    tipo:Int
+}
+type JurisprudenciasComentadas{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Imagenes
+    imagen_rectangular:Imagenes
+    fecha:DateTime
+    categoria_id:Int
+    #pdf:String
+    nroResolucion:String
+    textoAudio:String
+    slugEmisor:String
+    created_at:DateTime
+    updated_at:DateTime
+    Categorias:Categorias
+    Emisores:Emisores
+    NotasJurisprudenciasComentadas:[NotasJurisprudenciasComentadas!]
+}
+input JurisprudenciasComentadasInput{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Int
+    imagen_rectangular:Int
+    fecha:Date
+    nroResolucion:String
+    
+    categoria_id:Int
+    textoAudio:String
+    emisorId:Int
+
+    tipo:Int
+}
+type NotasJurisprudenciasComentadas {
+    id:ID
+    descripcionNota:String
+    tituloNota:String
+    id_key:String
+    pro_id:Int
+    JurisprudenciasComentadas:JurisprudenciasComentadas
+}
+input NotasJurisprudenciasComentadasInput {
+    id:ID
+    descripcionNota:String
+    tituloNota:String
+    id_key:String
+    pro_id:Int
+    tipo:Int
+}
+type BoletinesSemanales{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    fecha_inicial:DateTime
+    fecha_final:DateTime
+    imagen_principal:Imagenes
+    created_at:DateTime
+    updated_at:DateTime
+}
+input BoletinesSemanalesInput{
+    id:ID
+    titulo:String
+    slug:String
+    descripcion_corta:String
+    descripcion_larga:String
+    keyword:String
+    imagen_principal:Int
+    fecha_inicial:Date
+    fecha_final:Date
+
+    tipo:Int
+}
+type CodigosLegislacion{
+    id:ID
+    nombres:String
+    slug:String
+    imagen:Imagenes
+    url:String
+    keywords:String
+    descripcion:String
+    user_id:Int
+    nroVistas:Int
+    created_at:DateTime
+    updated_at:DateTime
+}
+input CodigosLegislacionInput{
+    id:ID
+    nombres:String
+    imagen:Int
+    url:String
+    keywords:String
+    descripcion:String
+    user_id:Int
+    nroVistas:Int
+
+    tipo:Int
+}
+type HerramientasBusqueda{
+    id:ID
+    nombres:String
+    slug:String
+    imagen:Imagenes
+    url:String
+    keywords:String
+    descripcion:String
+    user_id:Int
+    nroVistas:Int
+    created_at:DateTime
+    updated_at:DateTime
+}
+input HerramientasBusquedaInput{
+    id:ID
+    nombres:String
+    imagen:Int
+    url:String
+    keywords:String
+    descripcion:String
+    user_id:Int
+    nroVistas:Int
+    created_at:DateTime
+    updated_at:DateTime
+
+    tipo:Int
+}
+type NomasLegales{
+    id:ID
+    titulo:String
+    slug:String
+    pdf:String
+    fecha:DateTime
+    created_at:DateTime
+    updated_at:DateTime
+}
+input NomasLegalesInput{
+    id:ID
+    titulo:String
+    slug:String
+    pdf:String
+    fecha:DateTime
+
+    tipo:Int
+}
+type SumariosRevistas{
+    id:ID
+    titulo:String
+    slug:String
+    
+    keywords:String
+    descripcion:String
+    fecha:DateTime
+    created_at:DateTime
+    updated_at:DateTime
+}
+input SumariosRevistasInput{
+    id:ID
+    titulo:String
+    slug:String
+    keywords:String
+    fecha:Date
+    descripcion:String
+
+    tipo:Int
+}
+input FavoritosInput{
+    id:Int
+    producto_id:Int
+    tipo:Int
+    id_key:String
+}
+type FavoritosNoticiasInformes{
+    id:Int
+    producto_id:Int
+    id_key:String
+    NoticiasInformesOpiniones:NoticiasInformesOpiniones
+}
+type FavoritosArticulosJuridicos{
+    id:Int
+    producto_id:Int
+    id_key:String
+    ArticulosJuridicos:ArticulosJuridicos
+}
+type FavoritosNormasComentadas{
+    id:Int
+    producto_id:Int
+    id_key:String
+    NormasComentadas:NormasComentadas
+}
+type FavoritosNoticiasJurisprudenciasComentadas{
+    id:Int
+    id_key:String
+    producto_id:Int
+    JurisprudenciasComentadas:JurisprudenciasComentadas
+}
+type FavoritosNoticiasBoletinesSemanales{
+    id:Int
+    id_key:String
+    producto_id:Int
+    BoletinesSemanales:BoletinesSemanales
+}
+#######################Landing##########
+########################################
+type item{
+    icono:Imagenes
+    titulo:String
+}
+input itemInput{
+    icono:Int
+    titulo:String
+}
+##############
+type item1{
+    imagen:Imagenes
+    texto:String
+}
+input item1Input{
+    imagen:Int
+    texto:String
+}
+############
+type seccion1{
+    galeria:[Imagenes!]
+    imagen_fondo:Imagenes
+    descripcion:String
+}
+input seccion1Input{
+    galeria:[Int!]
+    imagen_fondo:Int
+    descripcion:String
+}
+#########################
+type seccion2{
+    imagen_fondo:Imagenes
+    imagen_principal:Imagenes
+    campo_texto:String
+}
+input seccion2Input{
+    imagen_fondo:Int
+    imagen_principal:Int
+    campo_texto:String
+}
+#########################
+type seccion3{
+    titulo:String
+    imagen_fondo:Imagenes
+    item:[item!]
+}
+input seccion3Input{
+    titulo:String
+    imagen_fondo:Int
+    itemInput:[itemInput!]
+}
+############################
+type seccion4{
+    titulo:String
+    item:[item!]
+}
+input seccion4Input{
+    titulo:String
+    itemInput:[itemInput!]
+}
+########################################
+type seccion5{
+    campo_texto_principal:String
+    campo_texto_secundaria:String
+    imagen_principal:Imagenes
+    imagen_secundaria:Imagenes
+    imagen_fondo:Imagenes
+}
+input seccion5Input{
+    campo_texto_principal:String
+    campo_texto_secundaria:String
+    imagen_principal:Int
+    imagen_secundaria:Int
+    imagen_fondo:Int
+}
+########################
+type seccion6{
+    titulo:String
+    imagen_fondo:Imagenes
+    campo_texto_principal:String
+    campo_texto_secundaria:String
+}
+input seccion6Input{
+    titulo:String
+    imagen_fondo:Int
+    campo_texto_principal:String
+    campo_texto_secundaria:String
+}
+#############################
+type seccion7{
+    titulo:String
+    color:String
+    campo_texto:[String!]
+    imagen_fondo:Imagenes
+    imagen_principal:Imagenes
+    item1:[item1!]
+}
+input seccion7Input{
+    titulo:String
+    color:String
+    campo_texto:[String!]
+    imagen_fondo:Int
+    imagen_principal:Int
+    item1Input:[item1Input!]
+}
+###############################
+type seccion8{
+    imagen_fondo:Imagenes
+    imagen_principal:Imagenes
+    galeria:[Imagenes!]
+}
+input seccion8Input{
+    imagen_fondo:Int
+    imagen_principal:Int
+    galeria:[Int!]
+}
+##############################
+type seccion9{
+    imagen:Imagenes
+    galeria:[Imagenes!]
+    imagen_fondo:Imagenes
+}
+input seccion9Input{
+    imagen:Int
+    galeria:[Int!]
+    imagen_fondo:Int
+}
+###############################
+type seccion10{
+    titulo:String
+    imagen_fondo:Imagenes
+    imagen_principal:Imagenes
+    numeros:[String!]
+}
+input seccion10Input{
+    titulo:String
+    imagen_fondo:Int
+    imagen_principal:Int
+    numeros:[String!]
+}
+###############################
+type seccion11{
+    imagen_principal:Imagenes
+    descripcion:String
+}
+input seccion11Input{
+    imagen_principal:Int
+    descripcion:String
+}
+##############################
+type seccion12{
+    galeria:[Imagenes!]
+}
+input seccion12Input{
+    galeria:[Int!]
+}
+########################################
+type Landing{
+    seccion1:seccion1
+    seccion2:seccion2
+    seccion3:seccion3
+    seccion4:seccion4
+    seccion5:seccion5
+    seccion6:seccion6
+    seccion7:seccion7
+    seccion8:seccion8
+    seccion9:seccion9
+    seccion10:seccion10
+    seccion11:seccion11
+    seccion12:seccion12
+}
+input LandingInput{
+    tipo:Int
+    seccion1Input:seccion1Input
+    seccion2Input:seccion2Input
+    seccion3Input:seccion3Input
+    seccion4Input:seccion4Input
+    seccion5Input:seccion5Input
+    seccion6Input:seccion6Input
+    seccion7Input:seccion7Input
+    seccion8Input:seccion8Input
+    seccion9Input:seccion9Input
+    seccion10Input:seccion10Input
+    seccion11Input:seccion11Input
+    seccion12Input:seccion12Input
+}
+type Autores{
+    autorId:ID
+    nombreAutor:String
+    tituloAutor:String
+    slugAutor:String
+    keywordsAutor:String
+    descripcionAutor:String
+}
+input AutoresInput{
+    autorId:ID
+    tituloAutor:String
+    nombreAutor:String
+    slugAutor:String
+    keywordsAutor:String
+    descripcionAutor:String
+}
+type Emisores{
+    emisorId:ID
+    nombreEmisor:String
+    slugEmisor:String
+    keywordsEmisor:String
+    descripcionEmisor:String
+}
+input EmisoresInput{
+    emisorId:ID
+    nombreEmisor:String
+    slugEmisor:String
+    keywordsEmisor:String
+    descripcionEmisor:String
+}
+type Mutation {
+    createNotasJurisprudenciasComentadas(
+        input:NotasJurisprudenciasComentadasInput! @spread
+    ): NotasJurisprudenciasComentadas @field(resolver: "CrudNotasJurisprudenciasComentadas@Create")
+    updateNotasNotasJurisprudenciasComentadas(
+        input:NotasJurisprudenciasComentadasInput! @spread
+    ): NotasJurisprudenciasComentadas @field(resolver: "CrudNotasJurisprudenciasComentadas@Update")
+    deleteNotasNotasJurisprudenciasComentadas(
+        input:NotasJurisprudenciasComentadasInput! @spread
+    ): String @field(resolver: "CrudNotasJurisprudenciasComentadas@Delete")
+
+    createNotasArticulosJuridicos(
+        input:NotasArticulosJuridicosInput! @spread
+    ): NotasArticulosJuridicos @field(resolver: "CrudNotasArticulosJuridicos@Create")
+    updateNotasNotasArticulosJuridicos(
+        input:NotasArticulosJuridicosInput! @spread
+    ): NotasArticulosJuridicos @field(resolver: "CrudNotasArticulosJuridicos@Update")
+    deleteNotasNotasArticulosJuridicos(
+        input:NotasArticulosJuridicosInput! @spread
+    ): String @field(resolver: "CrudNotasArticulosJuridicos@Delete")
+
+    createNotasNoticiasInformesOpiniones(
+        input:NotasNoticiasInformesOpinionesInput! @spread
+    ): NotasNoticiasInformesOpiniones @field(resolver: "CrudNotasNoticiasInformesOpiniones@Create")
+    updateNotasNoticiasInformesOpiniones(
+        input:NotasNoticiasInformesOpinionesInput! @spread
+    ): NotasNoticiasInformesOpiniones @field(resolver: "CrudNotasNoticiasInformesOpiniones@Update")
+    deleteNotasNoticiasInformesOpiniones(
+        input:NotasNoticiasInformesOpinionesInput! @spread
+    ): String @field(resolver: "CrudNotasNoticiasInformesOpiniones@Delete")
+
+    createEmisores(
+        input:EmisoresInput! @spread
+    ): Emisores @field(resolver: "CrudEmisores@Create")
+    updateEmisores(
+        input:EmisoresInput! @spread
+    ): Emisores @field(resolver: "CrudEmisores@Update")
+    deleteEmisores(
+        input:EmisoresInput! @spread
+    ): String @field(resolver: "CrudEmisores@Delete")
+
+    createAutor(
+        input:AutoresInput! @spread
+    ): Autores @field(resolver: "CrudAutores@Create")
+    updateAutor(
+        input:AutoresInput! @spread
+    ): Autores @field(resolver: "CrudAutores@Update")
+    deleteAutor(
+        input:AutoresInput! @spread
+    ): String @field(resolver: "CrudAutores@Delete")
+
+    EditarLanding(
+        input:LandingInput! @spread
+    ): Landing @field(resolver: "CrudLanding@CreateLanding")
+
+    createFavoritoBoletinesSemanales(
+        input:FavoritosInput! @spread
+    ): FavoritosNoticiasBoletinesSemanales @field(resolver: "CrudFavoritosBoletines@Create")
+    deleteFavoritosBoletinesSemanales(
+        input:FavoritosInput! @spread
+    ): String @field(resolver: "CrudFavoritosBoletines@Delete")
+
+    createFavoritoJurisprudenciasComentadas(
+        input:FavoritosInput! @spread
+    ): FavoritosNoticiasJurisprudenciasComentadas @field(resolver: "CrudFavoritosJurisprudenciasComentadas@Create")
+    deleteFavoritosJurisprudenciasComentadas(
+        input:FavoritosInput! @spread
+    ): String @field(resolver: "CrudFavoritosJurisprudenciasComentadas@Delete")
+
+    createFavoritosNormasComentadas(
+        input:FavoritosInput! @spread
+    ): FavoritosNormasComentadas @field(resolver: "CrudFavoritosNormasComentadas@Create")
+    deleteFavoritosNormasComentadas(
+        input:FavoritosInput! @spread
+    ): String @field(resolver: "CrudFavoritosNormasComentadas@Delete")
+
+    createFavoritosArticulosJuridicos(
+        input:FavoritosInput! @spread
+    ): FavoritosArticulosJuridicos @field(resolver: "CrudFavoritosArticulosJuridicos@Create")
+    deleteFavoritosArticulosJuridicos(
+        input:FavoritosInput! @spread
+    ): String @field(resolver: "CrudFavoritosArticulosJuridicos@Delete")
+
+    createFavoritosNoticiasInformes(
+        input:FavoritosInput! @spread
+    ): FavoritosNoticiasInformes @field(resolver: "CrudFavoritosNoticiasInformesOpiniones@Create")
+    deleteFavoritosNoticiasInformes(
+        input:FavoritosInput! @spread
+    ): String @field(resolver: "CrudFavoritosNoticiasInformesOpiniones@Delete")
+
+
+    createUser(
+        input:UserInput! @spread,
+        photo:Upload
+    ): User @field(resolver: "AuthMutator@CrearUsuario")
+    updateUser(
+        input:UserInput! @spread,
+        photo:Upload
+    ): User @field(resolver: "AuthMutator@UpdateUsuario")
+    deleteUser(
+        input:UserInput! @spread
+    ): String @field(resolver: "AuthMutator@DeleteUsuario")
+    
+    createSumariosRevistas(
+        input:SumariosRevistasInput! @spread,
+        pdf:Upload
+    ):SumariosRevistas @field(resolver: "CrudSumariosRevistas@Create")
+    updateSumariosRevistas(
+        input:SumariosRevistasInput! @spread,
+        pdf:Upload
+    ):SumariosRevistas @field(resolver: "CrudSumariosRevistas@Update")
+    updateNroVistasSumariosRevistas(
+        input:SumariosRevistasInput! @spread
+    ):SumariosRevistas @field(resolver: "CrudSumariosRevistas@UpdateNroVistas")
+    deleteSumariosRevistas(
+        input:SumariosRevistasInput! @spread
+    ):String @field(resolver: "CrudSumariosRevistas@Delete")
+
+    createNomasLegales(
+        input:NomasLegalesInput! @spread,
+        pdf:Upload
+    ):NomasLegales @field(resolver: "CrudNormasLegales@Create")
+    updateNomasLegales(
+        input:NomasLegalesInput! @spread,
+        pdf:Upload
+    ):NomasLegales @field(resolver: "CrudNormasLegales@Update")
+    updateNroVistasNomasLegales(
+        input:NomasLegalesInput! @spread
+    ):NomasLegales @field(resolver: "CrudNormasLegales@UpdateNroVistas")
+    deleteNomasLegales(
+        input:NomasLegalesInput! @spread
+    ):String @field(resolver: "CrudNormasLegales@Delete")
+
+    createHerramientasBusqueda(
+        input:HerramientasBusquedaInput! @spread
+    ):HerramientasBusqueda @field(resolver: "CrudHerramientasBusqueda@Create")
+    updateHerramientasBusqueda(
+        input:HerramientasBusquedaInput! @spread
+    ):HerramientasBusqueda @field(resolver: "CrudHerramientasBusqueda@Update")
+    updateNroVistasHerramientasBusqueda(
+        input:HerramientasBusquedaInput! @spread
+    ):HerramientasBusqueda @field(resolver: "CrudHerramientasBusqueda@UpdateNroVistas")
+    deleteHerramientasBusqueda(
+        input:HerramientasBusquedaInput! @spread
+    ):String @field(resolver: "CrudHerramientasBusqueda@Delete")
+
+    createCodigosLegislacion(
+        input:CodigosLegislacionInput! @spread
+    ):CodigosLegislacion @field(resolver: "CrudCodigosLegislacion@Create")
+    updateCodigosLegislacion(
+        input:CodigosLegislacionInput! @spread
+    ):CodigosLegislacion @field(resolver: "CrudCodigosLegislacion@Update")
+    updateNroVistasCodigosLegislacion(
+        input:CodigosLegislacionInput! @spread
+    ):CodigosLegislacion @field(resolver: "CrudCodigosLegislacion@UpdateNroVistas")
+    deleteCodigosLegislacion(
+        input:CodigosLegislacionInput! @spread
+    ):String @field(resolver: "CrudCodigosLegislacion@Delete")
+
+    createBoletinesSemanales(
+        input:BoletinesSemanalesInput! @spread
+    ):BoletinesSemanales @field(resolver: "CrudBoletinesSemanales@Create")
+    updateBoletinesSemanales(
+        input:BoletinesSemanalesInput! @spread
+    ):BoletinesSemanales @field(resolver: "CrudBoletinesSemanales@Update")
+    updateNroVistasBoletinesSemanales(
+        input:BoletinesSemanalesInput! @spread
+    ):BoletinesSemanales @field(resolver: "CrudBoletinesSemanales@UpdateNroVistas")
+    deleteBoletinesSemanales(
+        input:BoletinesSemanalesInput! @spread
+    ):String @field(resolver: "CrudBoletinesSemanales@Delete")
+
+    createJurisprudenciasComentadas(
+        input:JurisprudenciasComentadasInput! @spread,
+        pdf:Upload
+    ):JurisprudenciasComentadas @field(resolver: "CrudJurisprudenciasComentadas@Create")
+    updateJurisprudenciasComentadas(
+        input:JurisprudenciasComentadasInput! @spread,
+        pdf:Upload
+    ):JurisprudenciasComentadas @field(resolver: "CrudJurisprudenciasComentadas@Update")
+    updateNroVistasJurisprudenciasComentadas(
+        input:JurisprudenciasComentadasInput! @spread
+    ):JurisprudenciasComentadas @field(resolver: "CrudJurisprudenciasComentadas@UpdateNroVistas")
+    deleteJurisprudenciasComentadas(
+        input:JurisprudenciasComentadasInput! @spread
+    ):String @field(resolver: "CrudJurisprudenciasComentadas@Delete")
+
+
+     createCategoriaJurisprudenciasComentadas(
+        input:CategoriasInput! @spread
+    ):Categorias @field(resolver: "CrudCategorias@CreateCategoriaJurisprudenciasComentadas")
+    updateCategoriaJurisprudenciasComentadas(
+        input:CategoriasInput! @spread
+    ):Categorias @field(resolver: "CrudCategorias@UpdateCategoriaJurisprudenciasComentadas")
+    deleteCategoriaJurisprudenciasComentadas(
+        input:CategoriasInput! @spread
+    ):String @field(resolver: "CrudCategorias@DeleteCategoriaJurisprudenciasComentadas")
+
+    createNormasComentadas(
+        input:NormasComentadasInput! @spread
+    ):NormasComentadas @field(resolver: "CrudNormasComentadas@Create")
+    updateNormasComentadas(
+        input:NormasComentadasInput! @spread
+    ):NormasComentadas @field(resolver: "CrudNormasComentadas@Update")
+    updateNroVistasNormasComentadas(
+        input:NormasComentadasInput! @spread
+    ):NormasComentadas @field(resolver: "CrudNormasComentadas@UpdateNroVistas")
+    deleteNormasComentadas(
+        input:NormasComentadasInput! @spread
+    ):String @field(resolver: "CrudNormasComentadas@Delete")
+
+    createCategoriaNormasComentadas(
+        input:CategoriasInput! @spread
+    ):Categorias @field(resolver: "CrudCategorias@CreateCategoriaNormasComentadas")
+    updateCategoriaNormasComentadas(
+        input:CategoriasInput! @spread
+    ):Categorias @field(resolver: "CrudCategorias@UpdateCategoriaNormasComentadas")
+    deleteCategoriaNormasComentadas(
+        input:CategoriasInput! @spread
+    ):String @field(resolver: "CrudCategorias@DeleteCategoriaNormasComentadas")
+
+
+    createArticulosJuridicos(
+        input:ArticulosJuridicosInput! @spread
+    ):ArticulosJuridicos @field(resolver: "CrudArticulosJuridicos@Create")
+    updateArticulosJuridicos(
+        input:ArticulosJuridicosInput! @spread
+    ):ArticulosJuridicos @field(resolver: "CrudArticulosJuridicos@Update")
+    updateNroVistasArticulosJuridicos(
+        input:ArticulosJuridicosInput! @spread
+    ):ArticulosJuridicos @field(resolver: "CrudArticulosJuridicos@UpdateNroVistas")
+    deleteArticulosJuridicos(
+        input:ArticulosJuridicosInput! @spread
+    ):String @field(resolver: "CrudArticulosJuridicos@Delete")
+
+
+    createCategoriaArticulosJuridicos(
+        input:CategoriasInput! @spread
+    ):Categorias @field(resolver: "CrudCategorias@CreateCategoriaArticulosJuridicos")
+    updateCategoriaArticulosJuridicos(
+        input:CategoriasInput! @spread
+    ):Categorias @field(resolver: "CrudCategorias@UpdateCategoriaArticulosJuridicos")
+    deleteCategoriaArticulosJuridicos(
+        input:CategoriasInput! @spread
+    ):String @field(resolver: "CrudCategorias@DeleteCategoriaArticulosJuridicos")
+
+    createNoticiasInformesOpiniones(
+        input:NoticiasInformesOpinionesInput! @spread
+    ):NoticiasInformesOpiniones @field(resolver: "CrudNoticiasInformesOpiniones@Create")
+    updateNoticiasInformesOpiniones(
+        input:NoticiasInformesOpinionesInput! @spread
+    ):NoticiasInformesOpiniones @field(resolver: "CrudNoticiasInformesOpiniones@Update")
+    updateNroVistasNoticiasInformesOpiniones(
+        input:NoticiasInformesOpinionesInput! @spread
+    ):NoticiasInformesOpiniones @field(resolver: "CrudNoticiasInformesOpiniones@UpdateNroVistas")
+    deleteNoticiasInformesOpiniones(
+        input:NoticiasInformesOpinionesInput! @spread
+    ):String @field(resolver: "CrudNoticiasInformesOpiniones@Delete")
+
+    createCategoriaNoticiasInformesOpiniones(
+        input:CategoriasInput! @spread
+    ):Categorias @field(resolver: "CrudCategorias@CreateCategoriaNoticiasInformesOpiniones")
+    updateCategoriaNoticiasInformesOpiniones(
+        input:CategoriasInput! @spread
+    ):Categorias @field(resolver: "CrudCategorias@UpdateCategoriaNoticiasInformesOpiniones")
+    deleteCategoriaNoticiasInformesOpiniones(
+        input:CategoriasInput! @spread
+    ):String @field(resolver: "CrudCategorias@DeleteCategoriaNoticiasInformesOpiniones")
+
+
+    createCivilLibrosDigitales(
+        input:LibrosDigitalesInput! @spread
+    ):LibrosDigitales @field(resolver: "CrudLibrosDigitales@Create")
+    updateCivilLibrosDigitales(
+        input:LibrosDigitalesInput! @spread
+    ):LibrosDigitales @field(resolver: "CrudLibrosDigitales@Update")
+    updateNroVistasCivilLibrosDigitales(
+        input:LibrosDigitalesInput! @spread
+    ):LibrosDigitales @field(resolver: "CrudLibrosDigitales@UpdateNroVistas")
+    deleteCivilLibrosDigitales(
+        input:LibrosDigitalesInput! @spread
+    ):String @field(resolver: "CrudLibrosDigitales@Delete")
+
+
+    createCivilRevistasDigitales(
+        input:RevistasDigitalesInput! @spread
+    ):RevistasDigitales @field(resolver: "CrudRevistasDigitales@Create")
+    updateCivilRevistasDigitales(
+        input:RevistasDigitalesInput! @spread
+    ):RevistasDigitales @field(resolver: "CrudRevistasDigitales@Update")
+    updateNroVistasCivilRevistasDigitales(
+        input:RevistasDigitalesInput! @spread
+    ):RevistasDigitales @field(resolver: "CrudRevistasDigitales@UpdateNroVistas")
+    deleteCivilRevistasDigitales(
+        input:RevistasDigitalesInput! @spread
+    ):String @field(resolver: "CrudRevistasDigitales@Delete")
+
+
+    CreateImage(
+        imagen:Upload @spread,
+        input:ImagenesInput @spread
+    ): Imagenes @field(resolver: "CrudImagenes@create")
+    UpdateImage(
+        input:ImagenesInput @spread
+    ): Imagenes @field(resolver: "CrudImagenes@update")
+    DeleteImage(
+        id:Int! @spread
+    ): String @field(resolver: "CrudImagenes@delete")
+
+    LoginSuscriptores(
+        input:UserSuscritoInput! @spread
+    ): UserSuscrito @field(resolver: "AuthMutator@LoginUserSuscrito")
+    CambiarContrasenaUsuario(
+        input:CambiarContrasenaInput! @spread,
+    ): User @field(resolver: "AuthMutator@CambiarContrasena")
+    RecuperarContraUsuario(
+        input:UserInput! @spread
+    ): User @field(resolver: "AuthMutator@RecuperarContrasena")
+    Login(
+        input:UserInput! @spread
+    ): User @field(resolver: "AuthMutator@Login")
+
+}
